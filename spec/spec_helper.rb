@@ -10,7 +10,7 @@ ActiveRecord::Base.establish_connection(development_configuration)
 RSpec.configure do |config|
   config.after(:each) do
     Cook.all.each { |cook| cook.destroy }
-    # Recipe_box.all.each { |recipe_box| recipe_box.destroy }
+    RecipeBox.all.each { |recipe_box| recipe_box.destroy }
     # Recipe.all.each { |recipe| recipe.destroy }
   end
 end

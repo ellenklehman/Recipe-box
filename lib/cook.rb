@@ -1,5 +1,6 @@
 
 class Cook < ActiveRecord::Base
+  has_many :recipe_box
   has_many :recipes, :through => :recipe_box
 
   validates :name, :presence => true
@@ -13,4 +14,7 @@ class Cook < ActiveRecord::Base
     RecipeBox.where(:name => recipe_box_name)
   end
 
+  def count_recipes
+    self.recipes.count
+  end
 end

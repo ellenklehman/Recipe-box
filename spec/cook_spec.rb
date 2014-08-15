@@ -24,4 +24,14 @@ describe Cook do
     end
   end
 
+  describe '#count_recipes' do
+    it 'counts how many recipes a cook has' do
+      test_cook = Cook.create({:name => "Cookie Monster"})
+      test_recipe_box = RecipeBox.create({:name => 'Baked Goods', :cook_id => test_cook.id})
+      test_recipe = Recipe.create({:name => 'Cookies', :instructions => "buy cookies at bakery", :recipe_box_id => test_recipe_box.id})
+      another_test_recipe = Recipe.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven.", :recipe_box_id => test_recipe_box.id})
+      expect(test_cook.count_recipes).to eq 2
+    end
+  end
+
 end

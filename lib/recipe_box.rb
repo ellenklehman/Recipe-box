@@ -4,4 +4,8 @@ class RecipeBox < ActiveRecord::Base
 
   validates :name, :presence => true
   validates_uniqueness_of :name
+
+  after_save do
+    puts "You have created a recipe box!"
+  end
 end

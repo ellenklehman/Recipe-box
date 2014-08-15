@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe Cook do
   it { should validate_presence_of :name}
   it { should validate_uniqueness_of :name}
@@ -13,4 +14,14 @@ describe Cook do
       expect(test_cook.find_recipe('Cookies')).to eq [test_recipe]
     end
   end
+
+  describe '#find_recipe_box' do
+    it 'returns a recipe box based on a search' do
+      test_cook = Cook.create({:name => "Cookie Monster"})
+      test_recipe_box = RecipeBox.create({:name => 'Baked Goods', :cook_id => test_cook.id})
+      another_test_recipe_box = RecipeBox.create({:name => 'Chinese', :cook_id => test_cook.id})
+      expect(test_cook.find_recipe_box('Chinese')).to eq [another_test_recipe_box]
+    end
+  end
+
 end

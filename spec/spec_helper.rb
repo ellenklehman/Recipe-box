@@ -11,6 +11,6 @@ RSpec.configure do |config|
   config.after(:each) do
     Cook.all.each { |cook| cook.destroy }
     RecipeBox.all.each { |recipe_box| recipe_box.destroy }
-    # Recipe.all.each { |recipe| recipe.destroy }
+    Recipe.all.each { |recipe| recipe.destroy }
   end
 end

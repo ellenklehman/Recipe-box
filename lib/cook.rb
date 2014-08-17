@@ -7,6 +7,8 @@ class Cook < ActiveRecord::Base.extend(Textacular)
   validates :name, :presence => true
   validates_uniqueness_of :name
 
+  before_save :downcase_name
+
   after_save do
     puts "You have created a new cook!"
     sleep(1)
@@ -22,5 +24,10 @@ class Cook < ActiveRecord::Base.extend(Textacular)
 
   def count_recipes
     self.recipes.count
+  end
+
+private
+  def downcase_name
+    name.downcase!
   end
 end

@@ -20,6 +20,7 @@ def menu
 		puts "Type 'lc' to list all of the cooks and alter or search their recipes AND/OR edit them."
 		puts "Type 'lb' to list all of the recipe boxes and see their owners or recipes AND/OR edit them."
 		puts "Type 'lr' to list all of the recipes and see their boxes or cooks AND/OR edit them."
+		puts "Type 's' to search for a recipe, cook, or recipe box."
 		puts "Type 'clear' to clear the entire database."
 		puts "Type 'x' to exit the program."
 		choice = gets.chomp.downcase
@@ -36,6 +37,8 @@ def menu
 			list_boxes
 		when 'lr'
 			list_recipes
+		when 's'
+			search
 		when 'clear'
 			clear_database
 		when 'x'
@@ -102,7 +105,7 @@ def list_boxes
 end
 
 def list_recipes_by_box(box_id)
-	box = Box.where(:id => box_id)
+	box = Box.find(box_id)
 	box.recipes.each {|recipe| puts "#{recipe.id}: #{recipe.name}"}
 end
 
@@ -111,10 +114,51 @@ def list_recipes
 end
 
 def list_recipes_by_cook(cook_id)
-	cook = Cook.where(:id => cook_id)
+	cook = Cook.find(cook_id)
 	cook.recipes.each { |recipe| puts "#{recipe.id}: #{recipe.name}"}
 end
 
+def search
+	puts "Type 'c' to search for a cook."
+	puts "Type 'b' to search for a recipe box."
+	puts "Type 'r' to search for a recipe."
+	puts "Type 'm' to return to the main menu."
+	choice = gets.chomp.downcase
+	case choice
+	when 'c'
+		search_cooks
+	when 'b'
+		search_boxes
+	when 'r'
+		search_recipes
+	when 'm'
+		menu
+	else
+		puts "That wasn't a valid option."
+		search
+	end
+end
+
+def search_cooks
+	puts "What cook are you looking for?"
+	cook_query = gets.chomp.downcase
+	cooks = Cook.basic_search(cook_query)
+	cooks.each { |cook| puts cook.name}
+end
+
+def search_boxes
+	puts "What recipe box are you looking for?"
+	box_query = gets.chomp.downcase
+	boxes = Box.basic_search(box_query)
+	boxes.each { |box| puts box.name}
+end
+
+def search_recipes
+	puts "What recipe are you looking for?"
+	recipe_query = gets.chomp.downcase
+	recipes = Recipe.basic_search(recipe_query)
+	recipes.each { |recipe| puts recipe.name + ":   " + recipe.instructions}
+end
 
 def clear_database
 	Cook.destroy_all

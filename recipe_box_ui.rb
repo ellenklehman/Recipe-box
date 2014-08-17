@@ -7,7 +7,9 @@ development_configuration = database_configurations['development']
 ActiveRecord::Base.establish_connection(development_configuration)
 
 def welcome
+	system('clear')
 	puts "Welcome to Recipe Box!  An app where you can store and track recipes at a restaurant."
+	sleep(2)
 	menu
 end
 
@@ -18,8 +20,8 @@ def menu
 		puts "Type 'b' to add a recipe box."
 		puts "Type 'r' to add a recipe."
 		puts "Type 'lc' to list all of the cooks and alter or search their recipes AND/OR edit them."
-		puts "Type 'lb' to list all of the recipe boxes and see their owners or recipes AND/OR edit them."
-		puts "Type 'lr' to list all of the recipes and see their boxes or cooks AND/OR edit them."
+		puts "Type 'lb' to list all of the recipe boxes."
+		puts "Type 'lr' to list all of the recipes."
 		puts "Type 's' to search for a recipe, cook, or recipe box."
 		puts "Type 'clear' to clear the entire database."
 		puts "Type 'x' to exit the program."
@@ -60,9 +62,8 @@ def add_box
 	  puts "Please add a cook before trying to add a box."
 	  menu
 	else
-	  list_cooks
+	  Cook.all.each { |cook| puts "#{cook.id}: #{cook.name}"}
 	end
-	"\n"
 	puts "Type the number of the cook for whom you would like to create a box."
 	cook_id = gets.chomp.to_i
 	puts "What is the name of the box you would like to add?"
@@ -73,11 +74,11 @@ end
 def add_recipe
 	if Box.all.empty?
 	  puts "Please add a box before trying to add a recipe."
+	  sleep(2)
 	  menu
 	else
-	  list_cooks
+	  Cook.all.each { |cook| puts "#{cook.id}: #{cook.name}"}
 	end
-	"\n"
 	puts "Type the number of the cook for whom you would like to add a recipe."
 	cook_id = gets.chomp.to_i
 	list_boxes_by_cook(cook_id)
@@ -92,6 +93,7 @@ def add_recipe
 end
 
 def list_cooks
+	system('clear')
 	Cook.all.each { |cook| puts "#{cook.id}: #{cook.name}"}
 	puts "Type the number of the cook you would like to access."
 	cook_id = gets.chomp
@@ -108,17 +110,22 @@ def list_cooks
 		recipe_name = gets.chomp.downcase
 		selected_recipe = cook.find_recipe(recipe_name)
 		puts "#{selected_recipe.name}:    #{selected_recipe.instructions}"
+		sleep(4)
 	when 'box'
 		puts "What is the name of the box you would like to view?"
 		box_name = gets.chomp.downcase
 		selected_box = cook.find_box(box_name)
-		selected_box.recipes.each { |recipe| puts recipe.name}
+		selected_box.recipes.each { |recipe| puts recipe.name }
+		sleep(2)
 	when 'sb'
 		cook.boxes.each { |box| puts box.name }
+		sleep(2)
 	when 'sr'
 		cook.recipes.each { |recipe| puts recipe.name }
+		sleep(2)
 	when 'c'
 		cook.count_recipes
+		sleep(2)
 	else
 		puts "Please enter a valid option"
 		list_cooks
@@ -149,6 +156,7 @@ def list_recipes_by_cook(cook_id)
 end
 
 def search
+	system('clear')
 	puts "Type 'c' to search for a cook."
 	puts "Type 'b' to search for a recipe box."
 	puts "Type 'r' to search for a recipe."
@@ -170,6 +178,7 @@ def search
 end
 
 def search_cooks
+	system('clear')
 	puts "What cook are you looking for?"
 	cook_query = gets.chomp.downcase
 	cooks = Cook.basic_search(cook_query)
@@ -177,6 +186,7 @@ def search_cooks
 end
 
 def search_boxes
+	system('clear')
 	puts "What recipe box are you looking for?"
 	box_query = gets.chomp.downcase
 	boxes = Box.basic_search(box_query)
@@ -184,6 +194,7 @@ def search_boxes
 end
 
 def search_recipes
+	system('clear')
 	puts "What recipe are you looking for?"
 	recipe_query = gets.chomp.downcase
 	recipes = Recipe.basic_search(recipe_query)
@@ -191,24 +202,10 @@ def search_recipes
 end
 
 def clear_database
+	system('clear')
 	Cook.destroy_all
 	Box.destroy_all
 	Recipe.destroy_all
 	puts "Database has been cleared."
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 welcome

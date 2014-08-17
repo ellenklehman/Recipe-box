@@ -11,15 +11,15 @@ class Cook < ActiveRecord::Base.extend(Textacular)
 
   after_save do
     puts "You have created a new cook!"
-    sleep(1)
+    sleep(2)
   end
 
   def find_recipe(recipe_name)
-    Recipe.where(:name => recipe_name)
+    Recipe.find_by(:name => recipe_name)
   end
 
   def find_box(box_name)
-    Box.where(:name => box_name)
+    Box.find_by(:name => box_name)
   end
 
   def count_recipes

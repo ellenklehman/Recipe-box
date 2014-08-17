@@ -124,7 +124,8 @@ def list_cooks
 		cook.recipes.each { |recipe| puts recipe.name }
 		sleep(2)
 	when 'c'
-		cook.count_recipes
+		count = cook.count_recipes
+		puts "Recipe count: #{count}"
 		sleep(2)
 	else
 		puts "Please enter a valid option"

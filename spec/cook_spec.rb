@@ -11,7 +11,7 @@ describe Cook do
       test_box = Box.create({:name => 'Baked Goods', :cook_id => test_cook.id})
       test_recipe = test_box.recipes.create({:name => 'Cookies', :instructions => "buy cookies at bakery"})
       another_test_recipe = test_box.recipes.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven."})
-      expect(test_cook.find_recipe('Cookies')).to eq [test_recipe]
+      expect(test_cook.find_recipe('cookies')).to eq test_recipe
     end
   end
 
@@ -20,7 +20,7 @@ describe Cook do
       test_cook = Cook.create({:name => "Cookie Monster"})
       test_box = Box.create({:name => 'Baked Goods', :cook_id => test_cook.id})
       another_test_box = Box.create({:name => 'Chinese', :cook_id => test_cook.id})
-      expect(test_cook.find_box('Chinese')).to eq [another_test_box]
+      expect(test_cook.find_box('chinese')).to eq another_test_box
     end
   end
 

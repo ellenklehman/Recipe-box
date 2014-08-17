@@ -14,6 +14,9 @@ class Recipe < ActiveRecord::Base.extend(Textacular)
     sleep(2)
   end
 
+scope :recent, -> { where('created_at >= ?', Date.today - 5)}
+
+
 private
   def downcase_name
     name.downcase!

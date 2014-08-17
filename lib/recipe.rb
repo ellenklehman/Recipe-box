@@ -1,4 +1,6 @@
-class Recipe < ActiveRecord::Base
+require 'textacular'
+
+class Recipe < ActiveRecord::Base.extend(Textacular)
   has_and_belongs_to_many :boxes
   belongs_to :cook
 

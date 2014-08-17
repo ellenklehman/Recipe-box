@@ -1,5 +1,6 @@
+require 'textacular'
 
-class Cook < ActiveRecord::Base
+class Cook < ActiveRecord::Base.extend(Textacular)
   has_many :boxes
   has_many :recipes
 

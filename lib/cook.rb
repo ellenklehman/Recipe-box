@@ -1,7 +1,7 @@
 
 class Cook < ActiveRecord::Base
-  has_many :recipe_box
-  has_many :recipes, :through => :recipe_box
+  has_many :boxes
+  has_many :recipes, :through => :box
 
   validates :name, :presence => true
   validates_uniqueness_of :name
@@ -10,8 +10,8 @@ class Cook < ActiveRecord::Base
     Recipe.where(:name => recipe_name)
   end
 
-  def find_recipe_box(recipe_box_name)
-    RecipeBox.where(:name => recipe_box_name)
+  def find_box(box_name)
+    Box.where(:name => box_name)
   end
 
   def count_recipes

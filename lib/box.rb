@@ -1,4 +1,4 @@
-class RecipeBox < ActiveRecord::Base
+class Box < ActiveRecord::Base
   has_many :recipes
   belongs_to :cook
 

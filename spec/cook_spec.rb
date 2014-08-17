@@ -9,8 +9,8 @@ describe Cook do
     it 'returns a specific recipe based on a search' do
       test_cook = Cook.create({:name => "Cookie Monster"})
       test_box = Box.create({:name => 'Baked Goods', :cook_id => test_cook.id})
-      test_recipe = Recipe.create({:name => 'Cookies', :instructions => "buy cookies at bakery", :box_id => test_box.id})
-      another_test_recipe = Recipe.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven.", :box_id => test_box.id})
+      test_recipe = test_box.recipes.create({:name => 'Cookies', :instructions => "buy cookies at bakery"})
+      another_test_recipe = test_box.recipes.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven."})
       expect(test_cook.find_recipe('Cookies')).to eq [test_recipe]
     end
   end
@@ -27,9 +27,8 @@ describe Cook do
   describe '#count_recipes' do
     it 'counts how many recipes a cook has' do
       test_cook = Cook.create({:name => "Cookie Monster"})
-      test_box = Box.create({:name => 'Baked Goods', :cook_id => test_cook.id})
-      test_recipe = Recipe.create({:name => 'Cookies', :instructions => "buy cookies at bakery", :box_id => test_box.id})
-      another_test_recipe = Recipe.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven.", :box_id => test_box.id})
+      test_recipe = test_cook.recipes.create({:name => 'Cookies', :instructions => "buy cookies at bakery", :cook_id => test_cook.id})
+      another_test_recipe = test_cook.recipes.create({:name => "Cakes", :instructions => "Buy a box.  Mix ingredients. Put in oven.", :cook_id => test_cook.id})
       expect(test_cook.count_recipes).to eq 2
     end
   end

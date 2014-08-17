@@ -1,7 +1,7 @@
 
 class Cook < ActiveRecord::Base
   has_many :boxes
-  has_many :recipes, :through => :box
+  has_many :recipes
 
   validates :name, :presence => true
   validates_uniqueness_of :name

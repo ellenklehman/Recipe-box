@@ -16,3 +16,5 @@ At this time, the user interface is not built to edit or delete cooks, boxes, or
 ![screen shot 2014-08-17 at 10 32 23 am](https://cloud.githubusercontent.com/assets/8159813/3945789/0697327c-2652-11e4-8827-4e019e8570c9.png)
 
 
+MIT License. Copyright Ellen Lehman 2014
+

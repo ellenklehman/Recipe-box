@@ -93,6 +93,36 @@ end
 
 def list_cooks
 	Cook.all.each { |cook| puts "#{cook.id}: #{cook.name}"}
+	puts "Type the number of the cook you would like to access."
+	cook_id = gets.chomp
+	cook = Cook.find(cook_id)
+	puts "Type 'recipe' to see a specific recipe for this cook."
+	puts "Type 'box' to see a specific recipe box for this cook."
+	puts "Type 'sb' to see all of the boxes for this cook."
+	puts "Type 'sr' to see all of the recipes for this cook."
+	puts "Type 'c' for a number of all of the recipes this cook has."
+	choice = gets.chomp.downcase
+	case choice
+	when 'recipe'
+		puts "What is the name of the recipe you would like to view?"
+		recipe_name = gets.chomp.downcase
+		selected_recipe = cook.find_recipe(recipe_name)
+		puts "#{selected_recipe.name}:    #{selected_recipe.instructions}"
+	when 'box'
+		puts "What is the name of the box you would like to view?"
+		box_name = gets.chomp.downcase
+		selected_box = cook.find_box(box_name)
+		selected_box.recipes.each { |recipe| puts recipe.name}
+	when 'sb'
+		cook.boxes.each { |box| puts box.name }
+	when 'sr'
+		cook.recipes.each { |recipe| puts recipe.name }
+	when 'c'
+		cook.count_recipes
+	else
+		puts "Please enter a valid option"
+		list_cooks
+	end
 end
 
 def list_boxes_by_cook(cook_id)

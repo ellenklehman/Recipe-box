@@ -23,7 +23,7 @@ class Cook < ActiveRecord::Base.extend(Textacular)
   end
 
   def count_recipes
-    self.recipes.count
+    puts "Recipe count: " + self.recipes.count
   end
 
 private

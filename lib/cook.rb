@@ -7,6 +7,11 @@ class Cook < ActiveRecord::Base.extend(Textacular)
   validates :name, :presence => true
   validates_uniqueness_of :name
 
+  after_save do
+    puts "You have created a new cook!"
+    sleep(1)
+  end
+
   def find_recipe(recipe_name)
     Recipe.where(:name => recipe_name)
   end

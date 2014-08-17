@@ -158,6 +158,9 @@ end
 
 def search
 	system('clear')
+
+	puts "Here are a few of the most recent recipe additions:"
+	Recipe.recent.each { |recipe| puts recipe.name}
 	puts "Type 'c' to search for a cook."
 	puts "Type 'b' to search for a recipe box."
 	puts "Type 'r' to search for a recipe."

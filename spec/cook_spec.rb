@@ -2,6 +2,8 @@ require 'spec_helper'
 
 
 describe Cook do
+  it { should have_many :recipes }
+  it { should have_many :boxes }
   it { should validate_presence_of :name}
   it { should validate_uniqueness_of :name}
 
